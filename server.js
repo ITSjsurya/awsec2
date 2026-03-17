@@ -5,19 +5,20 @@ const path = require("path");
 const app = express();
 app.use(cors());
 
-// API routes
+// API
 app.get("/api/data", (req, res) => {
   res.json({ data: "Hello from Backend 👋" });
 });
 
-// Serve frontend build
+// Static
 app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/*", (req, res) => {
+// Catch-all (FINAL FIX)
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-// Start server
+// Start
 app.listen(5000, "0.0.0.0", () => {
   console.log("Server running on port 5000");
 });
